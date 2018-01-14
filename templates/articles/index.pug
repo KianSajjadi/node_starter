@@ -1,0 +1,6 @@
+include ../layouts/header.pug
+
+ul
+  for article in articles
+    li
+      a(href=`articles/${article.id}`) #{article.title}

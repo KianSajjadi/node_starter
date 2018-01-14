@@ -1,0 +1,12 @@
+include ../layouts/header.pug
+- if (success)
+  p You added an article successfully! Add another you genius
+- else
+  p You havent even tried to add an article you pussy ass?
+h1 This is where you can create your own article!
+form(method='post' action='/articles/new')
+  label(for="title") Title
+    input(type="text" name="title" id="title" placeholder="Title of your shitty article nobody will read")
+  label(for='content') Content
+    input(type="text" name="content" id='content' placeholder='content of your shitty article nobody will read')
+    input(type='submit' value='submit')

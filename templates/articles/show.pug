@@ -1,0 +1,10 @@
+include ../layouts/header.pug
+main
+  article
+    h1 #{article.title}
+    main #{article.content}
+
+  ul
+    li
+      - var articleLink = "/articles/" + article.id + "/edit"
+      a(href=articleLink) Edit Article
