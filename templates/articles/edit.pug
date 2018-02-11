@@ -1,7 +1,7 @@
 include ../layouts/header.pug
 - if (success)
   p you edited an article successfully!
-form(method='get' action='/articles')
+form(method='post' action=`/articles/${article.id}/edit`)
   label(for="title") Title
     input(type="text" name="title" id="title" value=article.title)
   label(for='content') Content

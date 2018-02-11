@@ -31,19 +31,6 @@ app.get('/articles', (req, res)=> {
 app.get('/articles/new', (req, res) => {
   res.render('articles/new')
 })
-
-app.get('/articles/:id/edit', (req, res) => {
-  const articleId = req.params.id
-  const statement= `SELECT * FROM articles WHERE id=${articleId};`
-    db.get(statement, (err, article)=> {
-      if(err) {console.log(err); return;}
-      console.log("editing article","id", article.id,"title:", article.title)
-      res.render('articles/edit', { article: article })
-    })
-})
-
-
-
 app.get('/articles/:id', (req, res) => {
   const articleId = req.params.id
   const statement = `SELECT * FROM articles WHERE id=${articleId};`
@@ -51,16 +38,6 @@ app.get('/articles/:id', (req, res) => {
     if (err) { console.log(err); return; }
     console.log("got article", article)
     res.render('articles/show', { article: article })
-  })
-})
-
-app.post('articles/:id/edit', (req, res)=> {
-  let params = req.body
-  const statement = `REPLACE INTO articles("title", "content") VALUES ("${params.title}", "${params.content}")`
-  console.log(statement)
-  db.run(statement, (err)=> {
-    if(err) {console.log('Error with Editing', err); return;}
-    res.render("articles/new", {success: true})
   })
 })
 app.post('/articles/new', (req, res) => {
@@ -71,6 +48,24 @@ app.post('/articles/new', (req, res) => {
     if (err) { console.log('Error with the DB DOGE', err); return; }
     res.render('articles/new', { success: true })
   })  
+})
+app.post('/articles/:id/edit', (req, res) => {
+  let params = req.body
+  const statement = `REPLACE INTO articles("id", "title", "content") VALUES ("${req.params.id}", "${params.title}", "${params.content}")`
+  console.log('\n', `Editing article ${params.id} - ${params.title}`, statement)
+  db.run(statement, (err)=> {
+    if(err) {console.log('Error with Editing', err); return;}
+    res.render("articles/new", {success: true})
+  })
+})
+app.get('/articles/:id/edit', (req, res) => {
+  const articleId = req.params.id
+  const statement= `SELECT * FROM articles WHERE id=${articleId};`
+    db.get(statement, (err, article)=> {
+      if(err) {console.log(err); return;}
+      console.log("editing article","id", article.id,"title:", article.title)
+      res.render('articles/edit', { article: article })
+    })
 })
 
 
