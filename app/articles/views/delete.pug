@@ -1,0 +1,12 @@
+
+
+html
+form(method='post' action=`/articles/${article.id}/delete`)
+  head
+    title Page deleted!
+  body 
+    ul
+      li
+        content You deleted an article!
+      li
+        a(href='/articles') Return to articles!
